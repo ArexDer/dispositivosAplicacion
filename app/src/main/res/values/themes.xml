@@ -1,0 +1,29 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Aplicacion1" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/primaryColor</item>
+    </style>
+
+    <style name="Theme.Aplicacion1" parent="Base.Theme.Aplicacion1" />
+
+    <style name ="ButtonBase">
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
+    </style>
+    <style name ="ButtonGreen" parent="ButtonBase">
+        <item name="android:backgroundTint">#87D829</item>
+        <item name="android:text">@string/txt_user</item>
+    </style>
+
+    <style name ="ButtonBlue" parent="ButtonBase">
+        <item name="android:backgroundTint">@color/blue</item>
+        <item name="android:text">@string/txt_password</item>
+    </style>
+
+    <style name ="ButtonRed" parent="ButtonBase">
+        <item name="android:backgroundTint">@color/red</item>
+        <item name="android:text">@string/txt_user</item>
+
+    </style>
+</resources>
