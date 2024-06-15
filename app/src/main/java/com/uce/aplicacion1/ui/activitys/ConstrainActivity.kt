@@ -19,6 +19,7 @@ import com.uce.aplicacion1.logic.usercase.GetOneTopNewUserCase
 import com.uce.aplicacion1.ui.adapters.NewsAdapter
 import com.uce.aplicacion1.ui.adapters.NewsDiffCallback
 import com.uce.aplicacion1.ui.entites.NewsDataUI
+import com.uce.aplicacion1.ui.fragments.ListarNews
 import com.uce.aplicacion1.ui.fragments.MenuBottomSheetFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -44,6 +45,11 @@ class ConstrainActivity : AppCompatActivity() {
         initVariables()
         initListeners()
         initData()
+
+        //Esta es la manera con la cual agregamos un fragment a un layout.
+        val x =supportFragmentManager.beginTransaction()
+        x.replace(binding.lytFragment.id, ListarNews())
+        x.commit()
 
     }
 
