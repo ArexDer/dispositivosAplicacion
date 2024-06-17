@@ -3,5 +3,5 @@
 
     <item android:title="Listar" android:icon="@drawable/amog" android:id="@+id/listarItem"/>
     <item android:title="favoritos" android:icon="@drawable/ic_android_black_24dp" android:id="@+id/favItem"/>
-    <item android:title="No Fap" android:icon="@drawable/fap" android:id="@+id/noFavItem"/>
+    <item android:title="No Fav" android:icon="@drawable/fap" android:id="@+id/noFavItem"/>
 </menu>
