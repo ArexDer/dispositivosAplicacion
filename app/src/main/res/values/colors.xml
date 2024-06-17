@@ -2,9 +2,14 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="red">#C13243</color>
-    <color name="nuevoColor">#4D64DF</color>
+    <color name="celeste">#4DB2E1</color>
     <color name="primaryColor">#71DDB2</color>
     <color name="blue">#266CA8</color>
     <color name="white">#FFFFFF</color>
     <color name="semi_transparent">#FC2C2C2C</color>
+
+    <color name="purple">#611277</color>
+    <color name="purpleClaro">#E8AC3DF3</color>
+    <color name="Amarillo">#D5A30D</color>
+
 </resources>
