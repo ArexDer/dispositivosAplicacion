@@ -42,6 +42,7 @@ class  MainActivity : AppCompatActivity() {
                     putExtra("idUser", user.id)
                 }
                 startActivity(intentToConstarintAct)
+                finish()
             }
 
             result.onFailure {
