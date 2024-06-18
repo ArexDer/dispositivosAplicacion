@@ -62,6 +62,12 @@ private var items : MutableList<NewsDataUI> = mutableListOf()
 
         //hago el llamado a lo qeu traje del Constrain:  initVariables
         initVariables()
+        initData()
+        initListeners()
+
+        binding.buttonOpenBottomSheet.setOnClickListener {
+         showMenuBottomSheet()
+         }
 
     }
 
@@ -195,6 +201,5 @@ private var items : MutableList<NewsDataUI> = mutableListOf()
         val menuBottomSheetFragment = MenuBottomSheetFragment()
        // menuBottomSheetFragment.show(supportFragmentManager, menuBottomSheetFragment.tag)
     }
-
-
+    
 }
