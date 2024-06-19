@@ -34,6 +34,7 @@
             android:name=".ui.activitys.ConstrainActivity"
             android:exported="false" />
         <activity
+            android:theme="@style/Theme.AppCompat.Starting"
             android:name=".ui.activitys.BiometricActivity"
             android:exported="true">
             <intent-filter>
@@ -43,5 +44,5 @@
             </intent-filter>
         </activity>
     </application>
-
+    <!--CODE BY DIEGO RIVAS & ANDRES LUGMAÑA -->
 </manifest>

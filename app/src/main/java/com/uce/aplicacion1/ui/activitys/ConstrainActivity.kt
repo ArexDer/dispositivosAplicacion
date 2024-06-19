@@ -47,7 +47,6 @@ class ConstrainActivity : AppCompatActivity() {
 
     }
 
-
     private fun initListeners(){
 
         binding.bottomNavigation.setOnItemSelectedListener {item ->

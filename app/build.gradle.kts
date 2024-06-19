@@ -66,5 +66,12 @@ dependencies {
     ksp ("androidx.room:room-compiler:2.6.1")
     implementation ("androidx.biometric:biometric:1.1.0")
 
+    //PANTALLA SPLASH
+    implementation("androidx.core:core-splashscreen:1.0.1")
+
+    //DataStore
+
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
+    //PASR TODAS LAS IMPLEMENTACIONES AL TOM
 
 }

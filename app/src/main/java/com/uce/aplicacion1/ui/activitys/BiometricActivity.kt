@@ -1,24 +1,36 @@
 package com.uce.aplicacion1.ui.activitys
 
+import kotlinx.coroutines.withContext
 
-
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.uce.aplicacion1.R
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.lifecycleScope
+
 import com.uce.aplicacion1.databinding.ActivityBiometricBinding
-import com.uce.aplicacion1.databinding.ActivityDatabaseBinding
-import com.uce.aplicacion1.databinding.FragmentListarNewsBinding
+import com.uce.aplicacion1.ui.entites.DataStoreEntitie
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import java.util.concurrent.Executor
 
+//Como variabe de DataStore  PARA QEU SEA DE CNTEXTO GLOBAL
+val Context.setttingDataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 class BiometricActivity : AppCompatActivity() {
 
     //BINDING DEL ACTIVITY
@@ -39,14 +51,14 @@ class BiometricActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_biometric)
+       // setContentView(R.layout.activity_biometric)
+        val splash = installSplashScreen()
 
         binding= ActivityBiometricBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         //Obtirne el MASTER del sistema
         executor = ContextCompat.getMainExecutor(this)
-
 
 
 
@@ -77,7 +89,8 @@ class BiometricActivity : AppCompatActivity() {
                     AQUI PONER MI CODIGO PARA QUE SE EJECUTE LAS ACTIVITYS Y PUEDO PONERLE UN TOAST
                      */
 
-                    startActivity(Intent(applicationContext, MainActivity::class.java))
+                    val x= Intent(applicationContext, MainActivity::class.java)
+                    startActivity(x)
 
 
                 }
@@ -88,7 +101,12 @@ class BiometricActivity : AppCompatActivity() {
                 }
             }
         )
-initListeners()
+        initListeners()
+        initListeners()
+
+        Thread.sleep(3000)
+        splash.setKeepOnScreenCondition{false}
+
 
 
     }
@@ -96,7 +114,11 @@ initListeners()
     private fun initListeners() {
 
         binding.imgFinger.setOnClickListener{
-            initBiometric()
+            //Primero guardar info y luego recuperar en vez del Biometriuco
+            dataStoreSave(DataStoreEntitie("Diego",true))
+
+            Log.d("TAG",dataStoreGet().toString())
+            //initBiometric()
         }
     }
 
@@ -141,4 +163,75 @@ initListeners()
         }
 
     }
+
+    private fun dataStoreSave(user: DataStoreEntitie){
+        // Guardar
+        lifecycleScope.launch(Dispatchers.IO) {
+            setttingDataStore.edit{ prefs ->
+                prefs[booleanPreferencesKey("active")]=user.active
+                prefs[stringPreferencesKey("user")]=user.name
+            }
+        }
+
+    }
+
+    private fun dataStoreGet():DataStoreEntitie{
+        //Recuperar
+        var ret =DataStoreEntitie()
+        lifecycleScope.launch(Dispatchers.Main) {
+            val x = withContext(Dispatchers.IO){
+                setttingDataStore.data.map {prefs ->
+                    DataStoreEntitie(
+                        prefs[stringPreferencesKey(name = "user")] ?: "",
+                        prefs[booleanPreferencesKey(name = "active")] ?: false
+                    )
+
+                }
+            }
+            ret =x.first()
+            /*
+            LO USO CUANDO TENOG UN FLUJO DE DATOS
+            UN EJEMPLO PUEDE SER WHATSU
+
+            x.collect{
+                ret =it
+            }
+            */
+
+
+        }
+        return ret!!
+    }
+
+
+    /*
+    //PARA RECUPERAR EL BOOLEANO
+    private fun dataStoreGetBol():Boolean{
+        //Recuperar
+        var ret =false
+        lifecycleScope.launch(Dispatchers.Main) {
+            val x = withContext(Dispatchers.IO){
+                setttingDataStore.data.map {prefs ->
+                    prefs[booleanPreferencesKey(name = "active")] ?: false
+                }
+            }
+            ret =x.first()
+            /*
+            LO USO CUANDO TENOG UN FLUJO DE DATOS
+            UN EJEMPLO PUEDE SER WHATSU
+
+            x.collect{
+                ret =it
+            }
+            */
+
+
+        }
+        return ret
+    }
+    */
+
 }
+
+
+
